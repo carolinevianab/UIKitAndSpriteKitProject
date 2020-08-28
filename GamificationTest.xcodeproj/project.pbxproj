@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10E1D7C124F986FD00A6E8A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7C024F986FD00A6E8A2 /* AppDelegate.swift */; };
+		10E1D7C324F986FD00A6E8A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7C224F986FD00A6E8A2 /* SceneDelegate.swift */; };
+		10E1D7C524F986FD00A6E8A2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7C424F986FD00A6E8A2 /* ViewController.swift */; };
+		10E1D7C824F986FD00A6E8A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10E1D7C624F986FD00A6E8A2 /* Main.storyboard */; };
+		10E1D7CA24F986FE00A6E8A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10E1D7C924F986FE00A6E8A2 /* Assets.xcassets */; };
+		10E1D7CD24F986FE00A6E8A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10E1D7CB24F986FE00A6E8A2 /* LaunchScreen.storyboard */; };
+		10E1D7D824F986FE00A6E8A2 /* GamificationTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7D724F986FE00A6E8A2 /* GamificationTestTests.swift */; };
+		10E1D7E324F986FE00A6E8A2 /* GamificationTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7E224F986FE00A6E8A2 /* GamificationTestUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		10E1D7D424F986FE00A6E8A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E1D7B524F986FD00A6E8A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10E1D7BC24F986FD00A6E8A2;
+			remoteInfo = GamificationTest;
+		};
+		10E1D7DF24F986FE00A6E8A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10E1D7B524F986FD00A6E8A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 10E1D7BC24F986FD00A6E8A2;
+			remoteInfo = GamificationTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		10E1D7BD24F986FD00A6E8A2 /* GamificationTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GamificationTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10E1D7C024F986FD00A6E8A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		10E1D7C224F986FD00A6E8A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		10E1D7C424F986FD00A6E8A2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		10E1D7C724F986FD00A6E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		10E1D7C924F986FE00A6E8A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10E1D7CC24F986FE00A6E8A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		10E1D7CE24F986FE00A6E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10E1D7D324F986FE00A6E8A2 /* GamificationTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamificationTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		10E1D7D724F986FE00A6E8A2 /* GamificationTestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationTestTests.swift; sourceTree = "<group>"; };
+		10E1D7D924F986FE00A6E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10E1D7DE24F986FE00A6E8A2 /* GamificationTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamificationTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		10E1D7E224F986FE00A6E8A2 /* GamificationTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationTestUITests.swift; sourceTree = "<group>"; };
+		10E1D7E424F986FE00A6E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		10E1D7BA24F986FD00A6E8A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10E1D7D024F986FE00A6E8A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10E1D7DB24F986FE00A6E8A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10E1D7B424F986FD00A6E8A2 = {
+			isa = PBXGroup;
+			children = (
+				10E1D7BF24F986FD00A6E8A2 /* GamificationTest */,
+				10E1D7D624F986FE00A6E8A2 /* GamificationTestTests */,
+				10E1D7E124F986FE00A6E8A2 /* GamificationTestUITests */,
+				10E1D7BE24F986FD00A6E8A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		10E1D7BE24F986FD00A6E8A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				10E1D7BD24F986FD00A6E8A2 /* GamificationTest.app */,
+				10E1D7D324F986FE00A6E8A2 /* GamificationTestTests.xctest */,
+				10E1D7DE24F986FE00A6E8A2 /* GamificationTestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		10E1D7BF24F986FD00A6E8A2 /* GamificationTest */ = {
+			isa = PBXGroup;
+			children = (
+				10E1D7C024F986FD00A6E8A2 /* AppDelegate.swift */,
+				10E1D7C224F986FD00A6E8A2 /* SceneDelegate.swift */,
+				10E1D7C424F986FD00A6E8A2 /* ViewController.swift */,
+				10E1D7C624F986FD00A6E8A2 /* Main.storyboard */,
+				10E1D7C924F986FE00A6E8A2 /* Assets.xcassets */,
+				10E1D7CB24F986FE00A6E8A2 /* LaunchScreen.storyboard */,
+				10E1D7CE24F986FE00A6E8A2 /* Info.plist */,
+			);
+			path = GamificationTest;
+			sourceTree = "<group>";
+		};
+		10E1D7D624F986FE00A6E8A2 /* GamificationTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				10E1D7D724F986FE00A6E8A2 /* GamificationTestTests.swift */,
+				10E1D7D924F986FE00A6E8A2 /* Info.plist */,
+			);
+			path = GamificationTestTests;
+			sourceTree = "<group>";
+		};
+		10E1D7E124F986FE00A6E8A2 /* GamificationTestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				10E1D7E224F986FE00A6E8A2 /* GamificationTestUITests.swift */,
+				10E1D7E424F986FE00A6E8A2 /* Info.plist */,
+			);
+			path = GamificationTestUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10E1D7BC24F986FD00A6E8A2 /* GamificationTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10E1D7E724F986FE00A6E8A2 /* Build configuration list for PBXNativeTarget "GamificationTest" */;
+			buildPhases = (
+				10E1D7B924F986FD00A6E8A2 /* Sources */,
+				10E1D7BA24F986FD00A6E8A2 /* Frameworks */,
+				10E1D7BB24F986FD00A6E8A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GamificationTest;
+			productName = GamificationTest;
+			productReference = 10E1D7BD24F986FD00A6E8A2 /* GamificationTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		10E1D7D224F986FE00A6E8A2 /* GamificationTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10E1D7EA24F986FE00A6E8A2 /* Build configuration list for PBXNativeTarget "GamificationTestTests" */;
+			buildPhases = (
+				10E1D7CF24F986FE00A6E8A2 /* Sources */,
+				10E1D7D024F986FE00A6E8A2 /* Frameworks */,
+				10E1D7D124F986FE00A6E8A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				10E1D7D524F986FE00A6E8A2 /* PBXTargetDependency */,
+			);
+			name = GamificationTestTests;
+			productName = GamificationTestTests;
+			productReference = 10E1D7D324F986FE00A6E8A2 /* GamificationTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		10E1D7DD24F986FE00A6E8A2 /* GamificationTestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10E1D7ED24F986FE00A6E8A2 /* Build configuration list for PBXNativeTarget "GamificationTestUITests" */;
+			buildPhases = (
+				10E1D7DA24F986FE00A6E8A2 /* Sources */,
+				10E1D7DB24F986FE00A6E8A2 /* Frameworks */,
+				10E1D7DC24F986FE00A6E8A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				10E1D7E024F986FE00A6E8A2 /* PBXTargetDependency */,
+			);
+			name = GamificationTestUITests;
+			productName = GamificationTestUITests;
+			productReference = 10E1D7DE24F986FE00A6E8A2 /* GamificationTestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10E1D7B524F986FD00A6E8A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1160;
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = "Caroline Viana";
+				TargetAttributes = {
+					10E1D7BC24F986FD00A6E8A2 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					10E1D7D224F986FE00A6E8A2 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 10E1D7BC24F986FD00A6E8A2;
+					};
+					10E1D7DD24F986FE00A6E8A2 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = 10E1D7BC24F986FD00A6E8A2;
+					};
+				};
+			};
+			buildConfigurationList = 10E1D7B824F986FD00A6E8A2 /* Build configuration list for PBXProject "GamificationTest" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 10E1D7B424F986FD00A6E8A2;
+			productRefGroup = 10E1D7BE24F986FD00A6E8A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10E1D7BC24F986FD00A6E8A2 /* GamificationTest */,
+				10E1D7D224F986FE00A6E8A2 /* GamificationTestTests */,
+				10E1D7DD24F986FE00A6E8A2 /* GamificationTestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		10E1D7BB24F986FD00A6E8A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10E1D7CD24F986FE00A6E8A2 /* LaunchScreen.storyboard in Resources */,
+				10E1D7CA24F986FE00A6E8A2 /* Assets.xcassets in Resources */,
+				10E1D7C824F986FD00A6E8A2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10E1D7D124F986FE00A6E8A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10E1D7DC24F986FE00A6E8A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10E1D7B924F986FD00A6E8A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10E1D7C524F986FD00A6E8A2 /* ViewController.swift in Sources */,
+				10E1D7C124F986FD00A6E8A2 /* AppDelegate.swift in Sources */,
+				10E1D7C324F986FD00A6E8A2 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10E1D7CF24F986FE00A6E8A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10E1D7D824F986FE00A6E8A2 /* GamificationTestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		10E1D7DA24F986FE00A6E8A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10E1D7E324F986FE00A6E8A2 /* GamificationTestUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		10E1D7D524F986FE00A6E8A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10E1D7BC24F986FD00A6E8A2 /* GamificationTest */;
+			targetProxy = 10E1D7D424F986FE00A6E8A2 /* PBXContainerItemProxy */;
+		};
+		10E1D7E024F986FE00A6E8A2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 10E1D7BC24F986FD00A6E8A2 /* GamificationTest */;
+			targetProxy = 10E1D7DF24F986FE00A6E8A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		10E1D7C624F986FD00A6E8A2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10E1D7C724F986FD00A6E8A2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		10E1D7CB24F986FE00A6E8A2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				10E1D7CC24F986FE00A6E8A2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		10E1D7E524F986FE00A6E8A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		10E1D7E624F986FE00A6E8A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		10E1D7E824F986FE00A6E8A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamificationTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nadaAinda.GamificationTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		10E1D7E924F986FE00A6E8A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamificationTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nadaAinda.GamificationTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		10E1D7EB24F986FE00A6E8A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamificationTestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nadaAinda.GamificationTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GamificationTest.app/GamificationTest";
+			};
+			name = Debug;
+		};
+		10E1D7EC24F986FE00A6E8A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamificationTestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nadaAinda.GamificationTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GamificationTest.app/GamificationTest";
+			};
+			name = Release;
+		};
+		10E1D7EE24F986FE00A6E8A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamificationTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nadaAinda.GamificationTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GamificationTest;
+			};
+			name = Debug;
+		};
+		10E1D7EF24F986FE00A6E8A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GamificationTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = nadaAinda.GamificationTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GamificationTest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		10E1D7B824F986FD00A6E8A2 /* Build configuration list for PBXProject "GamificationTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10E1D7E524F986FE00A6E8A2 /* Debug */,
+				10E1D7E624F986FE00A6E8A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10E1D7E724F986FE00A6E8A2 /* Build configuration list for PBXNativeTarget "GamificationTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10E1D7E824F986FE00A6E8A2 /* Debug */,
+				10E1D7E924F986FE00A6E8A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10E1D7EA24F986FE00A6E8A2 /* Build configuration list for PBXNativeTarget "GamificationTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10E1D7EB24F986FE00A6E8A2 /* Debug */,
+				10E1D7EC24F986FE00A6E8A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		10E1D7ED24F986FE00A6E8A2 /* Build configuration list for PBXNativeTarget "GamificationTestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				10E1D7EE24F986FE00A6E8A2 /* Debug */,
+				10E1D7EF24F986FE00A6E8A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 10E1D7B524F986FD00A6E8A2 /* Project object */;
+}
