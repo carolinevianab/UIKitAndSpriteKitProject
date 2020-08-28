@@ -15,6 +15,7 @@
 		10E1D7CD24F986FE00A6E8A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10E1D7CB24F986FE00A6E8A2 /* LaunchScreen.storyboard */; };
 		10E1D7D824F986FE00A6E8A2 /* GamificationTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7D724F986FE00A6E8A2 /* GamificationTestTests.swift */; };
 		10E1D7E324F986FE00A6E8A2 /* GamificationTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7E224F986FE00A6E8A2 /* GamificationTestUITests.swift */; };
+		10E1D7F124F98C7100A6E8A2 /* FilaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1D7F024F98C7100A6E8A2 /* FilaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		10E1D7DE24F986FE00A6E8A2 /* GamificationTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GamificationTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10E1D7E224F986FE00A6E8A2 /* GamificationTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamificationTestUITests.swift; sourceTree = "<group>"; };
 		10E1D7E424F986FE00A6E8A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10E1D7F024F98C7100A6E8A2 /* FilaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				10E1D7C924F986FE00A6E8A2 /* Assets.xcassets */,
 				10E1D7CB24F986FE00A6E8A2 /* LaunchScreen.storyboard */,
 				10E1D7CE24F986FE00A6E8A2 /* Info.plist */,
+				10E1D7F024F98C7100A6E8A2 /* FilaViewController.swift */,
 			);
 			path = GamificationTest;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				10E1D7C524F986FD00A6E8A2 /* ViewController.swift in Sources */,
 				10E1D7C124F986FD00A6E8A2 /* AppDelegate.swift in Sources */,
+				10E1D7F124F98C7100A6E8A2 /* FilaViewController.swift in Sources */,
 				10E1D7C324F986FD00A6E8A2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

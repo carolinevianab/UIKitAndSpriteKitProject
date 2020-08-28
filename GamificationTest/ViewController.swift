@@ -10,10 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var bntComida: UIButton!
+    @IBOutlet weak var bntRoupas: UIButton!
+    @IBOutlet weak var bntPerfumes: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        bntComida.addTarget(self, action: #selector(botaoPressionado), for: .touchUpInside)
+        bntRoupas.addTarget(self, action: #selector(botaoPressionado), for: .touchUpInside)
+        bntPerfumes.addTarget(self, action: #selector(botaoPressionado), for: .touchUpInside)
     }
+    
+    @objc func botaoPressionado(){
+        performSegue(withIdentifier: "paraFila", sender: self)
+    }
+    
 
 
 }
