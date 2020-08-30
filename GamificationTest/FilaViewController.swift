@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import SpriteKit
 
 class FilaViewController: UIViewController {
 
     @IBOutlet weak var progresso: UIProgressView!
     @IBOutlet weak var cupom: UILabel!
     @IBOutlet weak var instrução: UILabel!
+    
+    @IBOutlet weak var scene: SKView!
+    var cena: GameScene?
     
     var timer: Timer!
     override func viewDidLoad() {
@@ -28,6 +32,15 @@ class FilaViewController: UIViewController {
         })
         
         timer.fire()
+        
+        
+        self.cena = GameScene(size: CGSize(width: self.scene.frame.size.width, height: self.scene.frame.size.height))
+        self.scene.presentScene(cena)
+        
+        if let cena = self.cena{
+            cena.snake()
+        }
+        
     }
     
     func done(){
