@@ -9,7 +9,14 @@
 import UIKit
 import SpriteKit
 
-class GameScene: SKScene {
+enum CollisionType: UInt32{
+    case walls = 1
+    case snake = 2
+    case food = 4
+    case head = 8
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var snakeSize = 5
     var si: CGPoint!
@@ -28,6 +35,8 @@ class GameScene: SKScene {
         self.backgroundColor = .black
         si = CGPoint(x: self.frame.midX, y: self.frame.midY)
         sf = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        physicsWorld.contactDelegate = self
+        physicsBody = SKPhysicsBody(edgeLoopFrom: frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
     }
     
     func touchUp(atPoint pos : CGPoint){
@@ -35,23 +44,27 @@ class GameScene: SKScene {
     }
     
     
+    
+    
     func snake(){
-        snakeP.popLast()
+        si = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        sf = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        lastMove = "nil"
+        snakeP.removeAll()
         let head = SKSpriteNode(color: .green, size: CGSize(width: pointSize, height: pointSize))
         head.position = CGPoint(x: muxtwenty(), y: muxtwenty())
         head.name = "snake"
         addChild(head)
+        head.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: pointSize, height: pointSize))
+        head.physicsBody?.affectedByGravity = false
+        head.physicsBody?.categoryBitMask = CollisionType.head.rawValue
+        head.physicsBody?.collisionBitMask = CollisionType.food.rawValue | CollisionType.snake.rawValue | CollisionType.walls.rawValue
+        head.physicsBody?.contactTestBitMask = CollisionType.food.rawValue | CollisionType.snake.rawValue | CollisionType.walls.rawValue
+        head.physicsBody?.allowsRotation = false
         snakeP.append(head)
         
-        
-            let snakePart = SKSpriteNode(color: .green, size: CGSize(width: pointSize, height: pointSize))
-            snakePart.position = CGPoint(x: head.position.x + CGFloat(pointSize), y: head.position.y)
-            addChild(snakePart)
-        snakeP.append(snakePart)
-        let snakeParte = SKSpriteNode(color: .green, size: CGSize(width: pointSize, height: pointSize))
-            snakeParte.position = CGPoint(x: snakePart.position.x + CGFloat(pointSize), y: snakePart.position.y)
-            addChild(snakeParte)
-        snakeP.append(snakeParte)
+        newPart()
+        newPart()
         
         food()
     }
@@ -59,40 +72,45 @@ class GameScene: SKScene {
     func food(){
         let food = SKSpriteNode(color: .red, size: CGSize(width: pointSize, height: pointSize))
         food.position = CGPoint(x: CGFloat(integerLiteral: muxtwenty()), y: CGFloat(integerLiteral: muxtwenty()))
-        
         food.name = "food"
+        food.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 5, height: 5))
+        food.physicsBody?.affectedByGravity = false
+        food.physicsBody?.allowsRotation = false
         addChild(food)
     }
+    var bPos: CGPoint!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         self.si = touch.location(in: self)
-        
-        let snake = childNode(withName: "snake")
-        
-        
+        let snakeHead = childNode(withName: "snake")
+        guard snakeHead != nil else {return}
         if !timer.isValid{
             timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
                 switch self.lastMove {
                     case "L":
+                        self.bPos = snakeHead?.position
                         self.moveParts()
-                        snake?.position = CGPoint(x: snake!.position.x - CGFloat(self.pointSize), y: snake!.position.y)
-//                        snake?.run(SKAction.move(to: CGPoint(x: snake!.position.x - CGFloat(pointSize), y: snake!.position.y), duration: 0.2))
+                        snakeHead?.position = CGPoint(x: snakeHead!.position.x - CGFloat(self.pointSize), y: snakeHead!.position.y)
+                        self.moveLast()
                         break
                     case "R":
+                        self.bPos = snakeHead?.position
                         self.moveParts()
-                        snake?.position = CGPoint(x: snake!.position.x + CGFloat(self.pointSize), y: snake!.position.y)
-//                        snake?.run(SKAction.move(to: CGPoint(x: snake!.position.x + CGFloat(pointSize), y: snake!.position.y), duration: 0.2))
+                        snakeHead?.position = CGPoint(x: snakeHead!.position.x + CGFloat(self.pointSize), y: snakeHead!.position.y)
+                        self.moveLast()
                         break
                     case "U":
+                        self.bPos = snakeHead?.position
                         self.moveParts()
-                        snake?.position = CGPoint(x: snake!.position.x, y: snake!.position.y + CGFloat(self.pointSize))
-//                        snake?.run(SKAction.move(to: CGPoint(x: snake!.position.x, y: snake!.position.y + CGFloat(pointSize)), duration: 0.2))
+                        snakeHead?.position = CGPoint(x: snakeHead!.position.x, y: snakeHead!.position.y + CGFloat(self.pointSize))
+                        self.moveLast()
                         break
                     case "D":
+                        self.bPos = snakeHead?.position
                         self.moveParts()
-                        snake?.position = CGPoint(x: snake!.position.x, y: snake!.position.y - CGFloat(self.pointSize))
-//                        snake?.run(SKAction.move(to: CGPoint(x: snake!.position.x, y: snake!.position.y - CGFloat(pointSize)), duration: 0.2))
+                        snakeHead?.position = CGPoint(x: snakeHead!.position.x, y: snakeHead!.position.y - CGFloat(self.pointSize))
+                        self.moveLast()
                         break
                     default:
                         break
@@ -108,7 +126,16 @@ class GameScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
         move()
-        self.moveParts()
+        if childNode(withName: "Over") != nil {
+            if (childNode(withName: "Over")?.contains(touches.first!.location(in: self)))! {
+                self.removeAllChildren()
+                snake()
+                
+            }
+        }
+        else{
+            self.moveParts()
+        }
     }
     
     func muxtwenty() -> Int{
@@ -123,29 +150,20 @@ class GameScene: SKScene {
     func move(){
         let travel = CGPoint(x: self.sf.x - self.si.x, y: self.sf.y - self.si.y)
         let snake = childNode(withName: "snake")
-//        var this: CGFloat!
         snake?.removeAllActions()
         if abs(travel.x) > abs(travel.y) {
             if travel.x > 0 {
-//                snake!.run(SKAction.move(to: CGPoint(x: snake!.position.x + CGFloat(pointSize), y: snake!.position.y), duration: 0.2))
-                snake?.position = CGPoint(x: snake!.position.x + CGFloat(pointSize), y: snake!.position.y)
                 lastMove = "R"
             }
             else if travel.x < 0 {
-//                snake!.run(SKAction.move(to: CGPoint(x: snake!.position.x - CGFloat(pointSize), y: snake!.position.y), duration: 0.2))
-                snake?.position = CGPoint(x: snake!.position.x - CGFloat(pointSize), y: snake!.position.y)
                 lastMove = "L"
             }
         }
         else if abs(travel.x) < abs(travel.y) {
             if travel.y > 0 {
-//                snake!.run(SKAction.move(to: CGPoint(x: snake!.position.x, y: snake!.position.y + CGFloat(pointSize)), duration: 0.2))
-                snake?.position = CGPoint(x: snake!.position.x, y: snake!.position.y + CGFloat(pointSize))
                 lastMove = "U"
             }
             else if travel.y < 0 {
-//                snake!.run(SKAction.move(to: CGPoint(x: snake!.position.x, y: snake!.position.y - CGFloat(pointSize)), duration: 0.2))
-                snake?.position = CGPoint(x: snake!.position.x, y: snake!.position.y - CGFloat(pointSize))
                 lastMove = "D"
             }
         }
@@ -157,12 +175,83 @@ class GameScene: SKScene {
     
     func moveParts(){
         var index = snakeP.endIndex
-        index = snakeP.index(before: index)
+//        index = snakeP.index(before: index)
         while true {
-            if index == snakeP.startIndex {break}
-            snakeP[index].position = snakeP[snakeP.index(before: index)].position
             index = snakeP.index(before: index)
+            if snakeP.index(before: index) == snakeP.startIndex {break}
+            snakeP[index].position = snakeP[snakeP.index(before: index)].position
+            
         }
+    }
+    
+    func moveLast(){
+        var index = snakeP.startIndex
+        index = snakeP.index(after: index)
+        snakeP[index].position = bPos
+    }
+    
+    func newPart(){
+        let snakePart = SKSpriteNode(color: .systemGreen, size: CGSize(width: pointSize, height: pointSize))
+        var index = snakeP.endIndex
+        index = snakeP.index(before: index)
+        snakePart.position = CGPoint(x: snakeP[index].position.x + CGFloat(pointSize), y: snakeP[index].position.y)
+        snakePart.name = "SnakePart"
+        addChild(snakePart)
+        snakePart.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 5, height: 5))
+        snakePart.physicsBody?.affectedByGravity = false
+        snakePart.physicsBody?.allowsRotation = false
+        snakePart.physicsBody?.categoryBitMask = CollisionType.snake.rawValue
+        snakePart.physicsBody?.collisionBitMask = CollisionType.head.rawValue | CollisionType.walls.rawValue
+        snakePart.physicsBody?.contactTestBitMask = CollisionType.head.rawValue | CollisionType.walls.rawValue
+        snakeP.append(snakePart)
+        
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node else {return}
+        guard let nodeB = contact.bodyB.node else {return}
+        
+        let sortedNodes = [nodeA, nodeB].sorted {$0.name ?? "" <  $1.name ?? ""}
+        // Ordem alfabética:
+        //Scene (literally)
+        //food
+        //head
+        //SnakePart
+        //snake
+        
+        let firstNode = sortedNodes[0]
+        let secondNode = sortedNodes[1]
+        
+        if firstNode.children != []{
+            self.removeAllChildren()
+            gameOver()
+        }
+        
+        if firstNode.name == "SnakePart" {
+            if secondNode.name == "snake" {
+                self.removeAllChildren()
+                gameOver()
+            }
+        }
+        if firstNode.name == "food" || secondNode.name == "head" {
+            print("food")
+            firstNode.removeFromParent()
+            newPart()
+            food()
+        }
+    }
+    
+    func gameOver(){
+        timer.invalidate()
+        let label = SKLabelNode(text: "Game Over\n\nTap here to restart")
+        label.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        label.fontSize = 45
+        label.numberOfLines = 4
+        label.horizontalAlignmentMode = .center
+        label.verticalAlignmentMode = .center
+        label.name = "Over"
+        addChild(label)
+        lastMove = "nil"
     }
     
     
