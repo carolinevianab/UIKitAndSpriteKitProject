@@ -25,11 +25,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let pointSize = 20
     var lastMove = "nil"
     var timer = Timer()
+    var score = 0
+    var bPos: CGPoint!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+    //MARK: init
     override init(size: CGSize) {
         super.init(size: size)
         self.backgroundColor = .black
@@ -37,20 +39,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sf = CGPoint(x: self.frame.midX, y: self.frame.midY)
         physicsWorld.contactDelegate = self
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
+        
+        
     }
     
+    //MARK: touchUp
     func touchUp(atPoint pos : CGPoint){
         self.sf = pos
     }
     
-    
-    
-    
+    //MARK: Snake
     func snake(){
         si = CGPoint(x: self.frame.midX, y: self.frame.midY)
         sf = CGPoint(x: self.frame.midX, y: self.frame.midY)
         lastMove = "nil"
+        score = 0
         snakeP.removeAll()
+        
         let head = SKSpriteNode(color: .green, size: CGSize(width: pointSize, height: pointSize))
         head.position = CGPoint(x: muxtwenty(), y: muxtwenty())
         head.name = "snake"
@@ -65,26 +70,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         newPart()
         newPart()
-        
         food()
+        scoreAppear()
     }
     
+    //MARK: scoreAppear
+    func scoreAppear(){
+        let labell = SKLabelNode(text: "Score: \(score)")
+        labell.position = CGPoint(x: self.frame.minX, y: self.frame.maxY)
+        labell.verticalAlignmentMode = .top
+        labell.horizontalAlignmentMode = .left
+        labell.name = "score"
+        labell.fontColor = .white
+        self.addChild(labell)
+    }
+    
+    //MARK: food
     func food(){
         let food = SKSpriteNode(color: .red, size: CGSize(width: pointSize, height: pointSize))
-        food.position = CGPoint(x: CGFloat(integerLiteral: muxtwenty()), y: CGFloat(integerLiteral: muxtwenty()))
+        
+        while true {
+            food.position = CGPoint(x: CGFloat(integerLiteral: muxtwenty()), y: CGFloat(integerLiteral: muxtwenty()))
+            if nodes(at: food.position) == [] {
+                break
+            }
+        }
         food.name = "food"
         food.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 5, height: 5))
         food.physicsBody?.affectedByGravity = false
         food.physicsBody?.allowsRotation = false
         addChild(food)
     }
-    var bPos: CGPoint!
     
+    //MARK: touchesBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
         self.si = touch.location(in: self)
+        
         let snakeHead = childNode(withName: "snake")
         guard snakeHead != nil else {return}
+        
         if !timer.isValid{
             timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
                 switch self.lastMove {
@@ -119,10 +144,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             })
             timer.fire()
         }
-        
-        
     }
     
+    //MARK: update
+    override func update(_ currentTime: TimeInterval) {
+        let lblScore = childNode(withName: "score")
+        if lblScore != nil {
+            let a = lblScore as! SKLabelNode
+            a.text = "Score: \(score)"
+        }
+    }
+    
+    //MARK: touchesEnded
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
         move()
@@ -138,19 +171,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //MARK: muxTwenty
     func muxtwenty() -> Int{
         var a = 0
         while true {
-            a = Int.random(in: pointSize...Int(self.frame.maxX - CGFloat(pointSize)))
+            a = Int.random(in: pointSize...Int(self.frame.maxX - CGFloat(pointSize) * 3))
             if a % 20 == 0 {break}
         }
         return a
     }
     
+    //MARK: move
     func move(){
         let travel = CGPoint(x: self.sf.x - self.si.x, y: self.sf.y - self.si.y)
         let snake = childNode(withName: "snake")
         snake?.removeAllActions()
+        
         if abs(travel.x) > abs(travel.y) {
             if travel.x > 0 {
                 lastMove = "R"
@@ -173,9 +209,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //MARK: moveParts
     func moveParts(){
         var index = snakeP.endIndex
-//        index = snakeP.index(before: index)
         while true {
             index = snakeP.index(before: index)
             if snakeP.index(before: index) == snakeP.startIndex {break}
@@ -184,12 +220,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    //MARK: moveLast
     func moveLast(){
         var index = snakeP.startIndex
         index = snakeP.index(after: index)
         snakeP[index].position = bPos
     }
     
+    //MARK: newPart
     func newPart(){
         let snakePart = SKSpriteNode(color: .systemGreen, size: CGSize(width: pointSize, height: pointSize))
         var index = snakeP.endIndex
@@ -207,6 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //MARK: didBegin
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else {return}
         guard let nodeB = contact.bodyB.node else {return}
@@ -215,7 +254,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Ordem alfabética:
         //Scene (literally)
         //food
-        //head
         //SnakePart
         //snake
         
@@ -227,23 +265,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameOver()
         }
         
-        if firstNode.name == "SnakePart" {
-            if secondNode.name == "snake" {
-                self.removeAllChildren()
-                gameOver()
-            }
+        if firstNode.name == "SnakePart" && secondNode.name == "snake" {
+            self.removeAllChildren()
+            gameOver()
         }
-        if firstNode.name == "food" || secondNode.name == "head" {
-            print("food")
+        else if firstNode.name == "food" && secondNode.name == "snake" {
             firstNode.removeFromParent()
+            score += 1
             newPart()
             food()
         }
+        
     }
     
+    //MARK: gameOver
     func gameOver(){
         timer.invalidate()
-        let label = SKLabelNode(text: "Game Over\n\nTap here to restart")
+        let label = SKLabelNode(text: "Score: \(score)\n\nGame Over\n\nTap here to restart")
         label.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         label.fontSize = 45
         label.numberOfLines = 4
