@@ -9,290 +9,196 @@
 import UIKit
 import SpriteKit
 
-enum CollisionType: UInt32{
-    case walls = 1
-    case snake = 2
-    case food = 4
-    case head = 8
-}
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    var snakeSize = 5
-    var si: CGPoint!
-    var sf: CGPoint!
-    var snakeP = [SKSpriteNode(color: .white, size: CGSize(width: 20, height: 20))]
-    let pointSize = 20
-    var lastMove = "nil"
-    var timer = Timer()
-    var score = 0
-    var bPos: CGPoint!
-
+    let pallete = SKSpriteNode(imageNamed: "colorPick")
+    var collum = 0
+    var line = 0
+    var text = true
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     //MARK: init
     override init(size: CGSize) {
         super.init(size: size)
-        self.backgroundColor = .black
-        si = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        sf = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        physicsWorld.contactDelegate = self
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)))
-        
-        
+        self.backgroundColor = .white
     }
     
-    //MARK: touchUp
-    func touchUp(atPoint pos : CGPoint){
-        self.sf = pos
+    //MARK: CreatePallete
+    func createPallete(){
+        pallete.position = CGPoint(x: frame.midX, y: (frame.midY - frame.midY/3))
+        pallete.name = "pallete"
+        addChild(pallete)
     }
     
-    //MARK: Snake
-    func snake(){
-        si = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        sf = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        lastMove = "nil"
-        score = 0
-        snakeP.removeAll()
-        
-        let head = SKSpriteNode(color: .green, size: CGSize(width: pointSize, height: pointSize))
-        head.position = CGPoint(x: muxtwenty(), y: muxtwenty())
-        head.name = "snake"
-        addChild(head)
-        head.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: pointSize, height: pointSize))
-        head.physicsBody?.affectedByGravity = false
-        head.physicsBody?.categoryBitMask = CollisionType.head.rawValue
-        head.physicsBody?.collisionBitMask = CollisionType.food.rawValue | CollisionType.snake.rawValue | CollisionType.walls.rawValue
-        head.physicsBody?.contactTestBitMask = CollisionType.food.rawValue | CollisionType.snake.rawValue | CollisionType.walls.rawValue
-        head.physicsBody?.allowsRotation = false
-        snakeP.append(head)
-        
-        newPart()
-        newPart()
-        food()
-        scoreAppear()
-    }
-    
-    //MARK: scoreAppear
-    func scoreAppear(){
-        let labell = SKLabelNode(text: "Score: \(score)")
-        labell.position = CGPoint(x: self.frame.minX, y: self.frame.maxY)
-        labell.verticalAlignmentMode = .top
-        labell.horizontalAlignmentMode = .left
-        labell.name = "score"
-        labell.fontColor = .white
-        self.addChild(labell)
-    }
-    
-    //MARK: food
-    func food(){
-        let food = SKSpriteNode(color: .red, size: CGSize(width: pointSize, height: pointSize))
-        
-        while true {
-            food.position = CGPoint(x: CGFloat(integerLiteral: muxtwenty()), y: CGFloat(integerLiteral: muxtwenty()))
-            if nodes(at: food.position) == [] {
-                break
-            }
-        }
-        food.name = "food"
-        food.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 5, height: 5))
-        food.physicsBody?.affectedByGravity = false
-        food.physicsBody?.allowsRotation = false
-        addChild(food)
-    }
-    
-    //MARK: touchesBegan
+    //MARK: TouchBegan
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
-        self.si = touch.location(in: self)
+        let local = touch.location(in: self)
         
-        let snakeHead = childNode(withName: "snake")
-        guard snakeHead != nil else {return}
-        
-        if !timer.isValid{
-            timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
-                switch self.lastMove {
-                    case "L":
-                        self.bPos = snakeHead?.position
-                        self.moveParts()
-                        snakeHead?.position = CGPoint(x: snakeHead!.position.x - CGFloat(self.pointSize), y: snakeHead!.position.y)
-                        self.moveLast()
-                        break
-                    case "R":
-                        self.bPos = snakeHead?.position
-                        self.moveParts()
-                        snakeHead?.position = CGPoint(x: snakeHead!.position.x + CGFloat(self.pointSize), y: snakeHead!.position.y)
-                        self.moveLast()
-                        break
-                    case "U":
-                        self.bPos = snakeHead?.position
-                        self.moveParts()
-                        snakeHead?.position = CGPoint(x: snakeHead!.position.x, y: snakeHead!.position.y + CGFloat(self.pointSize))
-                        self.moveLast()
-                        break
-                    case "D":
-                        self.bPos = snakeHead?.position
-                        self.moveParts()
-                        snakeHead?.position = CGPoint(x: snakeHead!.position.x, y: snakeHead!.position.y - CGFloat(self.pointSize))
-                        self.moveLast()
-                        break
-                    default:
-                        break
-             }
-                        
-            })
-            timer.fire()
+        if pallete.contains(local){
+            quickSwap(local: local)
         }
     }
     
-    //MARK: update
-    override func update(_ currentTime: TimeInterval) {
-        let lblScore = childNode(withName: "score")
-        if lblScore != nil {
-            let a = lblScore as! SKLabelNode
-            a.text = "Score: \(score)"
+    //MARK: QuickSwap
+    func quickSwap(local: CGPoint){
+        if local.x < 80 {
+            collum = 1
         }
-    }
-    
-    //MARK: touchesEnded
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-        move()
-        if childNode(withName: "Over") != nil {
-            if (childNode(withName: "Over")?.contains(touches.first!.location(in: self)))! {
-                self.removeAllChildren()
-                snake()
-                
-            }
+        else if local.x < 140 {
+            collum = 2
         }
-        else{
-            self.moveParts()
+        else if local.x < 200{
+            collum = 3
         }
-    }
-    
-    //MARK: muxTwenty
-    func muxtwenty() -> Int{
-        var a = 0
-        while true {
-            a = Int.random(in: pointSize...Int(self.frame.maxX - CGFloat(pointSize) * 3))
-            if a % 20 == 0 {break}
+        else if local.x < 260{
+            collum = 4
         }
-        return a
-    }
-    
-    //MARK: move
-    func move(){
-        let travel = CGPoint(x: self.sf.x - self.si.x, y: self.sf.y - self.si.y)
-        let snake = childNode(withName: "snake")
-        snake?.removeAllActions()
-        
-        if abs(travel.x) > abs(travel.y) {
-            if travel.x > 0 {
-                lastMove = "R"
-            }
-            else if travel.x < 0 {
-                lastMove = "L"
-            }
+        else if local.x < 320{
+            collum = 5
         }
-        else if abs(travel.x) < abs(travel.y) {
-            if travel.y > 0 {
-                lastMove = "U"
-            }
-            else if travel.y < 0 {
-                lastMove = "D"
-            }
+        else if local.x < 380{
+            collum = 6
         }
         
-        self.si = snake?.position
+        if local.y < 65 {
+            line = 8
+        }
+        else if local.y < 125 {
+            line = 7
+        }
+        else if local.y < 185{
+            line = 6
+        }
+        else if local.y < 245{
+            line = 5
+        }
+        else if local.y < 305{
+            line = 4
+        }
+        else if local.y < 365{
+            line = 3
+        }
+        else if local.y < 425{
+            line = 2
+        }
+        else if local.y < 485{
+            line = 1
+        }
         
+        let color = colors()
+        let emiter = SKEmitterNode(fileNamed: "emitterClick")!
+        emiter.position = local
+        addChild(emiter)
+        self.backgroundColor = color
         
     }
     
-    //MARK: moveParts
-    func moveParts(){
-        var index = snakeP.endIndex
-        while true {
-            index = snakeP.index(before: index)
-            if snakeP.index(before: index) == snakeP.startIndex {break}
-            snakeP[index].position = snakeP[snakeP.index(before: index)].position
-            
+    //MARK: Colors
+    func colors() -> UIColor{
+        switch (line,collum) {
+        case (1,1):
+            return #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        case (1,2):
+            return #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        case (1,3):
+            return #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        case (1,4):
+            return #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        case (1,5):
+            return #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        case (1,6):
+            return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        case (2,1):
+            return #colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)
+        case (2,2):
+            return #colorLiteral(red: 0.06274510175, green: 0, blue: 0.1921568662, alpha: 1)
+        case (2,3):
+            return #colorLiteral(red: 0.1921568662, green: 0.007843137719, blue: 0.09019608051, alpha: 1)
+        case (2,4):
+            return #colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1)
+        case (2,5):
+            return #colorLiteral(red: 0.3098039329, green: 0.2039215714, blue: 0.03921568766, alpha: 1)
+        case (2,6):
+            return #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)
+        case (3,1):
+            return #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        case (3,2):
+            return #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1)
+        case (3,3):
+            return #colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)
+        case (3,4):
+            return #colorLiteral(red: 0.521568656, green: 0.1098039225, blue: 0.05098039284, alpha: 1)
+        case (3,5):
+            return #colorLiteral(red: 0.5058823824, green: 0.3372549117, blue: 0.06666667014, alpha: 1)
+        case (3,6):
+            return #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1)
+        case (4,1):
+            return #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        case (4,2):
+            return #colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1)
+        case (4,3):
+            return #colorLiteral(red: 0.4392156899, green: 0.01176470611, blue: 0.1921568662, alpha: 1)
+        case (4,4):
+            return #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+        case (4,5):
+            return #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+        case (4,6):
+            return #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        case (5,1):
+            return #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        case (5,2):
+            return #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        case (5,3):
+            return #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        case (5,4):
+            return #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        case (5,5):
+            return #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        case (5,6):
+            return #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        case (6,1):
+            return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        case (6,2):
+            return #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        case (6,3):
+            return #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        case (6,4):
+            return #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        case (6,5):
+            return #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+        case (6,6):
+            return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        case (7,1):
+            return #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        case (7,2):
+            return #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        case (7,3):
+            return #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        case (7,4):
+            return #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        case (7,5):
+            return #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+        case (7,6):
+            return #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+        case (8,1):
+            return #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+        case (8,2):
+            return #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        case (8,3):
+            return #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        case (8,4):
+            return #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
+        case (8,5):
+            return #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        case (8,6):
+            return #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+        default:
+            return .white
         }
     }
-    
-    //MARK: moveLast
-    func moveLast(){
-        var index = snakeP.startIndex
-        index = snakeP.index(after: index)
-        snakeP[index].position = bPos
-    }
-    
-    //MARK: newPart
-    func newPart(){
-        let snakePart = SKSpriteNode(color: .systemGreen, size: CGSize(width: pointSize, height: pointSize))
-        var index = snakeP.endIndex
-        index = snakeP.index(before: index)
-        snakePart.position = CGPoint(x: snakeP[index].position.x + CGFloat(pointSize), y: snakeP[index].position.y)
-        snakePart.name = "SnakePart"
-        addChild(snakePart)
-        snakePart.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 5, height: 5))
-        snakePart.physicsBody?.affectedByGravity = false
-        snakePart.physicsBody?.allowsRotation = false
-        snakePart.physicsBody?.categoryBitMask = CollisionType.snake.rawValue
-        snakePart.physicsBody?.collisionBitMask = CollisionType.head.rawValue | CollisionType.walls.rawValue
-        snakePart.physicsBody?.contactTestBitMask = CollisionType.head.rawValue | CollisionType.walls.rawValue
-        snakeP.append(snakePart)
-        
-    }
-    
-    //MARK: didBegin
-    func didBegin(_ contact: SKPhysicsContact) {
-        guard let nodeA = contact.bodyA.node else {return}
-        guard let nodeB = contact.bodyB.node else {return}
-        
-        let sortedNodes = [nodeA, nodeB].sorted {$0.name ?? "" <  $1.name ?? ""}
-        // Ordem alfabética:
-        //Scene (literally)
-        //food
-        //SnakePart
-        //snake
-        
-        let firstNode = sortedNodes[0]
-        let secondNode = sortedNodes[1]
-        
-        if firstNode.children != []{
-            self.removeAllChildren()
-            gameOver()
-        }
-        
-        if firstNode.name == "SnakePart" && secondNode.name == "snake" {
-            self.removeAllChildren()
-            gameOver()
-        }
-        else if firstNode.name == "food" && secondNode.name == "snake" {
-            firstNode.removeFromParent()
-            score += 1
-            newPart()
-            food()
-        }
-        
-    }
-    
-    //MARK: gameOver
-    func gameOver(){
-        timer.invalidate()
-        let label = SKLabelNode(text: "Score: \(score)\n\nGame Over\n\nTap here to restart")
-        label.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        label.fontSize = 45
-        label.numberOfLines = 4
-        label.horizontalAlignmentMode = .center
-        label.verticalAlignmentMode = .center
-        label.name = "Over"
-        addChild(label)
-        lastMove = "nil"
-    }
-    
-    
     
     
 }

@@ -38,7 +38,7 @@ class FilaViewController: UIViewController {
         self.scene.presentScene(cena)
         
         if let cena = self.cena{
-            cena.snake()
+            cena.createPallete()
         }
         
     }
