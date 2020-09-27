@@ -29,6 +29,9 @@ class FilaViewController: UIViewController {
             if self.progresso.progress == 1{
                 self.done()
             }
+            if let cena = self.cena{
+                cena.animateBee()
+            }
         })
         
         timer.fire()
@@ -38,7 +41,7 @@ class FilaViewController: UIViewController {
         self.scene.presentScene(cena)
         
         if let cena = self.cena{
-            cena.snake()
+            cena.animateBee()
         }
         
     }
